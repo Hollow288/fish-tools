@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useMemo, useState } from "react";
 import type { ReactElement } from "react";
 import { generateHotpCode, generateTotpCode } from "../lib/otp";

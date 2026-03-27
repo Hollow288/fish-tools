@@ -1,6 +1,5 @@
 node_modules
-dist
-.vite
+.next
+out
 *.tsbuildinfo
-vite.config.d.ts
 .idea

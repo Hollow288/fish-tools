@@ -1,21 +1,29 @@
-FROM node:20-alpine AS build
+FROM node:20-alpine AS deps
 
 WORKDIR /app
 
 COPY package.json package-lock.json ./
 RUN npm ci
 
-COPY index.html ./
-COPY tsconfig.json tsconfig.node.json ./
-COPY vite.config.ts ./
-COPY src ./src
+FROM node:20-alpine AS build
+
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
 
 RUN npm run build
 
-FROM nginx:1.27-alpine
+FROM node:20-alpine AS runner
 
-COPY --from=build /app/dist /usr/share/nginx/html
+WORKDIR /app
+ENV NODE_ENV=production
+ENV HOSTNAME=0.0.0.0
+ENV PORT=3000
 
-EXPOSE 80
+COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/.next/static ./.next/static
 
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 3000
+
+CMD ["node", "server.js"]

@@ -1,12 +1,19 @@
-# Fish Tools - 工具网站前端
+# Fish Tools
 
-一个使用 React + Vite 的工具站前端。
+一个使用 Next.js App Router 构建的轻量工具站。
 
 ## 启动
 
 ```bash
 npm install
 npm run dev
+```
+
+## 生产构建
+
+```bash
+npm run build
+npm run start
 ```
 
 ## 页面结构
