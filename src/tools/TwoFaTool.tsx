@@ -38,7 +38,7 @@ function Field({ label, value, mono = false }: FieldProps): ReactElement {
 export default function TwoFaTool(): ReactElement {
   const [input, setInput] = useState<string>(SAMPLE_URI);
   const [showSecret, setShowSecret] = useState<boolean>(false);
-  const [nowMs, setNowMs] = useState<number>(() => Date.now());
+  const [nowMs, setNowMs] = useState<number | null>(null);
   const [otpCode, setOtpCode] = useState<string>("");
   const [otpError, setOtpError] = useState<string>("");
   const [copyLabel, setCopyLabel] = useState<string>("复制验证码");
@@ -49,16 +49,18 @@ export default function TwoFaTool(): ReactElement {
   const maskedSecret = data?.secret ? "•".repeat(Math.max(data.secret.length, 12)) : "";
 
   useEffect(() => {
+    setNowMs(Date.now());
+
     const timer = window.setInterval(() => setNowMs(Date.now()), 1000);
     return () => window.clearInterval(timer);
   }, []);
 
-  const nowSec = Math.floor(nowMs / 1000);
+  const nowSec = nowMs === null ? null : Math.floor(nowMs / 1000);
   const period = data?.type === "totp" ? data.period : null;
-  const remaining = period ? period - (nowSec % period || 0) : null;
+  const remaining = period !== null && nowSec !== null ? period - (nowSec % period || 0) : null;
 
   const timeSlice =
-    data?.type === "totp" && period
+    data?.type === "totp" && period && nowSec !== null
       ? Math.floor(nowSec / period)
       : data?.type === "hotp"
         ? data.counter
@@ -78,6 +80,12 @@ export default function TwoFaTool(): ReactElement {
         let code = "";
 
         if (data.type === "totp") {
+          if (nowSec === null) {
+            setOtpCode("");
+            setOtpError("");
+            return;
+          }
+
           code = await generateTotpCode({
             secret: data.secret,
             algorithm: data.algorithm,
@@ -176,7 +184,9 @@ export default function TwoFaTool(): ReactElement {
                 <button className="ghost-btn" type="button" onClick={handleCopyCode}>
                   {copyLabel}
                 </button>
-                {data.type === "totp" && <p className="otp-meta">{remaining}s 后刷新</p>}
+                {data.type === "totp" && (
+                  <p className="otp-meta">{remaining === null ? "--" : remaining}s 后刷新</p>
+                )}
               </div>
               {data.type === "totp" && (
                 <div className="progress-track" aria-hidden="true">

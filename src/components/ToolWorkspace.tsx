@@ -4,8 +4,10 @@ import { useDeferredValue, useEffect, useMemo, useState, useTransition } from "r
 import type { ReactElement } from "react";
 import { useRouter } from "next/navigation";
 import { DEFAULT_TOOL_ID, TOOLS, getToolById, matchesToolQuery, type ToolId } from "../lib/tool-registry";
+import CaesarTool from "../tools/CaesarTool";
 import OneLineTool from "../tools/OneLineTool";
 import TwoFaTool from "../tools/TwoFaTool";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface ToolWorkspaceProps {
   activeToolId: ToolId;
@@ -15,6 +17,8 @@ function renderTool(toolId: ToolId): ReactElement {
   switch (toolId) {
     case "one-line":
       return <OneLineTool />;
+    case "caesar":
+      return <CaesarTool />;
     case "twofa":
     default:
       return <TwoFaTool />;
@@ -207,6 +211,10 @@ export default function ToolWorkspace({ activeToolId }: ToolWorkspaceProps): Rea
           ))}
 
           {showEmptyResult && <p className="empty-tip">没有匹配到工具，请换个关键词。</p>}
+        </div>
+
+        <div className="nav-footer">
+          <ThemeToggle />
         </div>
       </aside>
 

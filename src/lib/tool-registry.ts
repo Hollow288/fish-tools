@@ -1,5 +1,5 @@
 export interface ToolDefinition {
-  id: "twofa" | "one-line";
+  id: "twofa" | "one-line" | "caesar";
   name: string;
   summary: string;
   keywords: string[];
@@ -17,6 +17,12 @@ export const TOOLS: ToolDefinition[] = [
     name: "文本压一行",
     summary: "将多行文本压缩成单行，自动折叠多余空白",
     keywords: ["text", "line", "oneline", "换行", "压缩", "空白", "文本"],
+  },
+  {
+    id: "caesar",
+    name: "凯撒密码破解",
+    summary: "暴力枚举全部 25 种位移，快速还原凯撒密文",
+    keywords: ["caesar", "凯撒", "密码", "位移", "rot", "brute", "破解", "加密"],
   },
 ];
 
