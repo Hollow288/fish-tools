@@ -1,8 +1,8 @@
 "use client";
 
-import { useDeferredValue, useEffect, useMemo, useState, useTransition } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import type { ReactElement } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { DEFAULT_TOOL_ID, TOOLS, getToolById, matchesToolQuery, type ToolId } from "../lib/tool-registry";
 import CaesarTool from "../tools/CaesarTool";
 import OneLineTool from "../tools/OneLineTool";
@@ -27,8 +27,6 @@ function renderTool(toolId: ToolId, initialInput?: string): ReactElement {
 }
 
 export default function ToolWorkspace({ activeToolId, initialInput }: ToolWorkspaceProps): ReactElement | null {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
   const [query, setQuery] = useState<string>("");
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const deferredQuery = useDeferredValue(query);
@@ -87,18 +85,6 @@ export default function ToolWorkspace({ activeToolId, initialInput }: ToolWorksp
       document.body.style.overflow = previousOverflow;
     };
   }, [isMenuOpen]);
-
-  const openTool = (toolId: ToolId) => {
-    if (toolId === activeToolId) {
-      setIsMenuOpen(false);
-      return;
-    }
-
-    setIsMenuOpen(false);
-    startTransition(() => {
-      router.push(`/tools/${toolId}`);
-    });
-  };
 
   if (!currentTool) {
     return null;
@@ -197,18 +183,18 @@ export default function ToolWorkspace({ activeToolId, initialInput }: ToolWorksp
 
         <div className="tool-list" role="listbox" aria-label="工具列表">
           {filteredTools.map((tool) => (
-            <button
+            <Link
               key={tool.id}
-              type="button"
+              href={`/tools/${tool.id}`}
+              prefetch={true}
               className={`tool-pill ${activeToolId === tool.id ? "is-active" : ""}`}
-              onClick={() => openTool(tool.id)}
-              disabled={isPending && activeToolId !== tool.id}
+              onClick={() => setIsMenuOpen(false)}
             >
               <span className="tool-pill-copy">
                 <span className="tool-pill-name">{tool.name}</span>
                 <span className="tool-pill-summary">{tool.summary}</span>
               </span>
-            </button>
+            </Link>
           ))}
 
           {showEmptyResult && <p className="empty-tip">没有匹配到工具，请换个关键词。</p>}
