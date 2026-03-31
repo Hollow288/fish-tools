@@ -35,8 +35,12 @@ function Field({ label, value, mono = false }: FieldProps): ReactElement {
   );
 }
 
-export default function TwoFaTool(): ReactElement {
-  const [input, setInput] = useState<string>(SAMPLE_URI);
+interface TwoFaToolProps {
+  initialInput?: string;
+}
+
+export default function TwoFaTool({ initialInput }: TwoFaToolProps): ReactElement {
+  const [input, setInput] = useState<string>(initialInput ?? SAMPLE_URI);
   const [showSecret, setShowSecret] = useState<boolean>(false);
   const [nowMs, setNowMs] = useState<number | null>(null);
   const [otpCode, setOtpCode] = useState<string>("");

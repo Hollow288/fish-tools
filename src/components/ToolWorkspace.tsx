@@ -11,9 +11,10 @@ import { ThemeToggle } from "./ThemeToggle";
 
 interface ToolWorkspaceProps {
   activeToolId: ToolId;
+  initialInput?: string;
 }
 
-function renderTool(toolId: ToolId): ReactElement {
+function renderTool(toolId: ToolId, initialInput?: string): ReactElement {
   switch (toolId) {
     case "one-line":
       return <OneLineTool />;
@@ -21,11 +22,11 @@ function renderTool(toolId: ToolId): ReactElement {
       return <CaesarTool />;
     case "twofa":
     default:
-      return <TwoFaTool />;
+      return <TwoFaTool initialInput={initialInput} />;
   }
 }
 
-export default function ToolWorkspace({ activeToolId }: ToolWorkspaceProps): ReactElement | null {
+export default function ToolWorkspace({ activeToolId, initialInput }: ToolWorkspaceProps): ReactElement | null {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [query, setQuery] = useState<string>("");
@@ -232,7 +233,7 @@ export default function ToolWorkspace({ activeToolId }: ToolWorkspaceProps): Rea
           </div>
         </header>
 
-        <div className="content-body">{renderTool(currentTool.id)}</div>
+        <div className="content-body">{renderTool(currentTool.id, initialInput)}</div>
       </section>
     </main>
   );
