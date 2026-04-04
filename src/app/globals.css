@@ -85,6 +85,7 @@
 
 html {
   color-scheme: dark;
+  overflow-x: hidden;
 }
 
 body {
@@ -1104,6 +1105,12 @@ textarea:focus {
     height: auto;
     min-height: auto;
     overflow: visible;
+    overflow-x: hidden;
+  }
+
+  /* 移动端隐藏溢出的墨渍装饰 */
+  .content-pane::before {
+    display: none;
   }
 
   .content-body {
