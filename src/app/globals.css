@@ -1143,24 +1143,31 @@ textarea:focus {
     padding: 0;
     background: rgba(26, 20, 16, 0.35);
     z-index: 20;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .nav-pane {
     position: fixed;
     top: 0;
+    bottom: 0;
     left: 0;
     width: min(84vw, 312px);
-    height: 100dvh;
+    height: auto;
     border-radius: 0 4px 4px 0;
     z-index: 30;
     transform: translateX(-105%);
     transition: transform 260ms ease;
     grid-template-rows: auto auto 1fr;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   .nav-pane::after {
-    width: min(84vw, 312px);
+    position: absolute;
+    width: 100%;
     height: 90px;
   }
 
