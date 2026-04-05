@@ -1,5 +1,5 @@
 export interface ToolDefinition {
-  id: "twofa" | "one-line" | "caesar";
+  id: "twofa" | "one-line" | "caesar" | "base64-image" | "encode" | "color";
   name: string;
   summary: string;
   keywords: string[];
@@ -23,6 +23,24 @@ export const TOOLS: ToolDefinition[] = [
     name: "凯撒密码破解",
     summary: "暴力枚举全部 25 种位移，快速还原凯撒密文",
     keywords: ["caesar", "凯撒", "密码", "位移", "rot", "brute", "破解", "加密"],
+  },
+  {
+    id: "base64-image",
+    name: "Base64 / 图片互转",
+    summary: "将 Base64 字符串转为图片预览并下载，或将图片转为 Base64",
+    keywords: ["base64", "image", "图片", "转换", "编码", "解码", "png", "jpg", "jpeg", "gif", "webp"],
+  },
+  {
+    id: "encode",
+    name: "编码 / 解码",
+    summary: "URL 编码解码、Unicode 转义互转",
+    keywords: ["url", "encode", "decode", "unicode", "编码", "解码", "转义", "encodeURIComponent", "percent"],
+  },
+  {
+    id: "color",
+    name: "颜色转换",
+    summary: "HEX / RGB / HSL 互转，附带颜色预览与拾色器",
+    keywords: ["color", "hex", "rgb", "hsl", "颜色", "转换", "拾色器", "色值"],
   },
 ];
 
