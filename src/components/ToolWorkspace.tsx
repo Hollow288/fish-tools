@@ -6,6 +6,7 @@ import Link from "next/link";
 import { DEFAULT_TOOL_ID, TOOLS, getToolById, matchesToolQuery, type ToolId } from "../lib/tool-registry";
 import CaesarTool from "../tools/CaesarTool";
 import OneLineTool from "../tools/OneLineTool";
+import SubEmailTool from "../tools/SubEmailTool";
 import TwoFaTool from "../tools/TwoFaTool";
 import Base64ImageTool from "../tools/Base64ImageTool";
 import EncodeTool from "../tools/EncodeTool";
@@ -29,6 +30,8 @@ function renderTool(toolId: ToolId, initialInput?: string): ReactElement {
       return <EncodeTool />;
     case "color":
       return <ColorTool />;
+    case "sub-email":
+      return <SubEmailTool />;
     case "twofa":
     default:
       return <TwoFaTool initialInput={initialInput} />;

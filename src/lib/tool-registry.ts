@@ -1,5 +1,5 @@
 export interface ToolDefinition {
-  id: "twofa" | "one-line" | "caesar" | "base64-image" | "encode" | "color";
+  id: "twofa" | "one-line" | "caesar" | "base64-image" | "encode" | "color" | "sub-email";
   name: string;
   summary: string;
   keywords: string[];
@@ -41,6 +41,12 @@ export const TOOLS: ToolDefinition[] = [
     name: "颜色转换",
     summary: "HEX / RGB / HSL 互转，附带颜色预览与拾色器",
     keywords: ["color", "hex", "rgb", "hsl", "颜色", "转换", "拾色器", "色值"],
+  },
+  {
+    id: "sub-email",
+    name: "子邮箱批量生成",
+    summary: "基于 + 地址技巧，按顺序或随机生成任意数量子邮箱",
+    keywords: ["email", "邮箱", "子邮箱", "plus", "alias", "别名", "批量", "生成"],
   },
 ];
 
