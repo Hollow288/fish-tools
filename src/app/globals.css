@@ -316,11 +316,18 @@ button:disabled {
 }
 
 .icon-btn:focus-visible,
-.ghost-btn:focus-visible,
-.search-input:focus-visible,
-textarea:focus-visible {
+.ghost-btn:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+.search-input:focus,
+.search-input:focus-visible,
+textarea:focus,
+textarea:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
 .mobile-nav-close {
@@ -435,9 +442,7 @@ textarea:focus-visible {
 }
 
 .search-input:focus {
-  border-color: var(--accent);
   background: var(--bg);
-  box-shadow: 0 0 0 1px var(--accent);
 }
 
 /* ─── Tool list (sidebar) ─── */
@@ -612,6 +617,17 @@ textarea:focus-visible {
   opacity: 0.7;
 }
 
+.content-route-bottom {
+  align-self: flex-end;
+  padding-bottom: 0.42rem;
+}
+
+.content-route-center {
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+}
+
 .content-body {
   min-height: 0;
   min-width: 0;
@@ -620,7 +636,7 @@ textarea:focus-visible {
   display: grid;
   gap: 0.75rem;
   align-content: start;
-  padding-right: 0.12rem;
+  padding-inline: 0.12rem;
 }
 
 /* ─── Panel ─── */
@@ -686,9 +702,7 @@ textarea {
 }
 
 textarea:focus {
-  border-color: var(--accent);
   background: var(--bg);
-  box-shadow: 0 0 0 1px var(--accent);
 }
 
 /* ─── Ghost Button ─── */
@@ -876,6 +890,25 @@ textarea:focus {
   color: var(--accent-strong);
 }
 
+.sub-email-last-copied {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.5rem 0 0.15rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.sub-email-last-copied .mono {
+  color: var(--accent-strong);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 .sub-email-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -933,6 +966,169 @@ textarea:focus {
   .sub-email-form {
     grid-template-columns: 1fr;
   }
+}
+
+.js-runner-editor {
+  border: 1px solid var(--line);
+  border-radius: var(--brush-radius);
+  background: var(--bg);
+  overflow: hidden;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.js-runner-editor:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.js-runner-editor .cm-editor,
+.js-runner-editor .cm-editor.cm-focused {
+  outline: none !important;
+}
+
+.js-runner-editor .cm-editor,
+.js-runner-editor .cm-scroller,
+.js-runner-editor .cm-gutters {
+  background-color: var(--bg) !important;
+  color: var(--ink);
+}
+
+.js-runner-editor .cm-content {
+  caret-color: var(--ink) !important;
+}
+
+.js-runner-editor .cm-cursor,
+.js-runner-editor .cm-dropCursor {
+  border-left-color: var(--ink) !important;
+}
+
+.js-runner-editor .cm-gutters {
+  color: var(--muted) !important;
+  border: none !important;
+  border-right: 1px solid var(--line) !important;
+}
+
+.js-runner-editor .cm-activeLine {
+  background-color: rgba(var(--ink-rgb), 0.04) !important;
+}
+
+.js-runner-editor .cm-activeLineGutter {
+  background-color: rgba(var(--ink-rgb), 0.04) !important;
+  color: var(--ink) !important;
+}
+
+.js-runner-editor .cm-editor.cm-focused .cm-selectionBackground,
+.js-runner-editor .cm-selectionBackground,
+.js-runner-editor .cm-content ::selection {
+  background-color: rgba(var(--ink-rgb), 0.16) !important;
+}
+
+.js-runner-editor .cm-selectionMatch {
+  background-color: rgba(var(--ink-rgb), 0.12) !important;
+}
+
+.js-runner-editor .cm-tooltip,
+.js-runner-editor .cm-panels {
+  background-color: var(--surface) !important;
+  border-color: var(--line) !important;
+  color: var(--ink) !important;
+}
+
+.js-runner-output {
+  min-height: 220px;
+  max-height: 480px;
+  overflow: auto;
+  padding: 0.65rem 0.78rem;
+  border: 1px solid var(--line);
+  border-radius: var(--brush-radius);
+  background: var(--bg);
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.65;
+}
+
+.js-runner-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 0.18rem 0;
+  color: var(--ink);
+}
+
+.js-runner-line + .js-runner-line {
+  border-top: 1px dashed var(--line);
+}
+
+.js-runner-line.is-warn {
+  color: #b8860b;
+}
+
+[data-theme="dark"] .js-runner-line.is-warn {
+  color: #e0b34a;
+}
+
+.js-runner-line.is-error {
+  color: var(--accent);
+}
+
+.js-runner-line.is-info {
+  color: var(--muted);
+}
+
+.jr-tok {
+  color: inherit;
+}
+
+.jr-tok-string {
+  color: #22863a;
+}
+
+.jr-tok-number {
+  color: #005cc5;
+}
+
+.jr-tok-keyword {
+  color: #d73a49;
+}
+
+.jr-tok-key {
+  color: #6f42c1;
+}
+
+.jr-tok-punct {
+  color: var(--muted);
+}
+
+[data-theme="dark"] .jr-tok-string {
+  color: #98c379;
+}
+
+[data-theme="dark"] .jr-tok-number {
+  color: #d19a66;
+}
+
+[data-theme="dark"] .jr-tok-keyword {
+  color: #c678dd;
+}
+
+[data-theme="dark"] .jr-tok-key {
+  color: #e06c75;
+}
+
+[data-theme="dark"] .jr-tok-punct {
+  color: rgba(var(--ink-rgb), 0.55);
+}
+
+.js-runner-empty {
+  margin: 0;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.js-runner-tip {
+  margin: 0.55rem 0 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.55;
 }
 
 .one-line-output {
@@ -1119,6 +1315,7 @@ textarea:focus {
 .nav-footer {
   display: flex;
   justify-content: center;
+  gap: 0.55rem;
   padding-top: 0.8rem;
   border-top: none;
   position: relative;

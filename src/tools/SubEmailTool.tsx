@@ -54,6 +54,7 @@ export default function SubEmailTool(): ReactElement {
   const [seed, setSeed] = useState<number>(0);
   const [copyAllLabel, setCopyAllLabel] = useState<string>("复制全部");
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [lastCopied, setLastCopied] = useState<string | null>(null);
 
   const parsed = useMemo(() => parseEmail(email), [email]);
   const safeCount = Math.max(0, Math.min(MAX_COUNT, Math.floor(count || 0)));
@@ -98,6 +99,7 @@ export default function SubEmailTool(): ReactElement {
     try {
       await navigator.clipboard.writeText(value);
       setCopiedIndex(index);
+      setLastCopied(value);
       window.setTimeout(() => setCopiedIndex(null), 1000);
     } catch {
       setCopiedIndex(null);
@@ -207,12 +209,17 @@ export default function SubEmailTool(): ReactElement {
           <div className="panel-head">
             <h3>生成结果</h3>
             <div className="actions">
-              <span className="content-route">共 {generated.length} 个</span>
+              <span className="content-route content-route-bottom">共 {generated.length} 个</span>
               <button className="ghost-btn" type="button" onClick={handleCopyAll}>
                 {copyAllLabel}
               </button>
             </div>
           </div>
+          {lastCopied && (
+            <p className="sub-email-last-copied">
+              上次复制：<span className="mono">{lastCopied}</span>
+            </p>
+          )}
           <div className="sub-email-list">
             {generated.map((value, index) => (
               <button
