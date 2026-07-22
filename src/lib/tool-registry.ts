@@ -1,5 +1,5 @@
 export interface ToolDefinition {
-  id: "twofa" | "one-line" | "caesar" | "base64-image" | "encode" | "color" | "sub-email";
+  id: "twofa" | "one-line" | "caesar" | "base64-image" | "encode" | "color" | "sub-email" | "js-runner";
   name: string;
   summary: string;
   keywords: string[];
@@ -47,6 +47,12 @@ export const TOOLS: ToolDefinition[] = [
     name: "子邮箱批量生成",
     summary: "基于 + 地址技巧，按顺序或随机生成任意数量子邮箱",
     keywords: ["email", "邮箱", "子邮箱", "plus", "alias", "别名", "批量", "生成"],
+  },
+  {
+    id: "js-runner",
+    name: "JS 在线运行",
+    summary: "在沙箱 iframe 中运行 JavaScript 片段，支持 await 与 fetch",
+    keywords: ["js", "javascript", "运行", "playground", "执行", "测试", "fetch", "console", "脚本", "调试"],
   },
 ];
 
