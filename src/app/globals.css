@@ -713,6 +713,12 @@ textarea:focus {
   color: var(--accent);
 }
 
+.ghost-btn.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
 /* ─── Info / Error ─── */
 
 .error-box,

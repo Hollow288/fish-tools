@@ -26,9 +26,9 @@ export const TOOLS: ToolDefinition[] = [
   },
   {
     id: "base64-image",
-    name: "Base64 / 图片互转",
-    summary: "将 Base64 字符串转为图片预览并下载，或将图片转为 Base64",
-    keywords: ["base64", "image", "图片", "转换", "编码", "解码", "png", "jpg", "jpeg", "gif", "webp"],
+    name: "Base64 / 图片 / 文字互转",
+    summary: "将 Base64 转为图片预览或文字，也可将图片或文字转为 Base64",
+    keywords: ["base64", "image", "图片", "文字", "文本", "utf-8", "转换", "编码", "解码", "png", "jpg", "jpeg", "gif", "webp"],
   },
   {
     id: "encode",
